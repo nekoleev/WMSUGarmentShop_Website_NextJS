@@ -69,11 +69,11 @@ const uesrSalesData: SalesProps[] = [
   }
 ];
 
-export default async function Home() {
+export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    // Generate a random delay between 1 and 3 seconds
-    const randomDelay = Math.floor(Math.random() * 3) + 1;
+    // Generate a random delay between 0 and 2 seconds
+    const randomDelay = Math.random() * 2;
 
     // Simulate loading by delaying setIsLoading(false) after the random delay
     const timer = setTimeout(() => {
@@ -83,6 +83,7 @@ export default async function Home() {
     // Clear the timeout when component unmounts to avoid memory leaks
     return () => clearTimeout(timer);
   }, []);
+
   if (isLoading) {
     return (
       <div className="flex flex-col gap-5  w-full">
@@ -100,7 +101,6 @@ export default async function Home() {
                 {/*  */}
             </section>
         </div>
-        <div>Loading...</div>
       </div>
     );
   }

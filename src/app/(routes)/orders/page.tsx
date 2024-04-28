@@ -15,9 +15,10 @@
 
 import { DataTable } from "@/components/DataTable";
 import { ColumnDef } from "@tanstack/react-table";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PageTitle from "@/components/PageTitle";
 import { cn } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type Props = {};
 type Payment = {
@@ -173,7 +174,38 @@ const data: Payment[] = [
 ];
 
 
-export default function OrdersPage({}: Props) {
+export default function OrdersPage({ }: Props) {
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    // Generate a random delay between 0 and 2 seconds
+    const randomDelay = Math.random() * 2;
+
+    // Simulate loading by delaying setIsLoading(false) after the random delay
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, randomDelay * 1000); // Convert seconds to milliseconds
+
+    // Clear the timeout when component unmounts to avoid memory leaks
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-5  w-full">
+        <Skeleton className="h-[30px] w-[283px]" />
+        <div className="flex flex-col gap-5  w-full">
+          <Skeleton className="h-[50px] w-[1100px]" />
+          <Skeleton className="h-[50px] w-[1100px]" />
+          <Skeleton className="h-[50px] w-[1100px]" />
+          <Skeleton className="h-[50px] w-[1100px]" />
+          <Skeleton className="h-[50px] w-[1100px]" />
+          <Skeleton className="h-[50px] w-[1100px]" />
+          <Skeleton className="h-[50px] w-[1100px]" />
+          <Skeleton className="h-[50px] w-[1100px]" />
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col gap-5  w-full">
       <PageTitle title="Orders" />

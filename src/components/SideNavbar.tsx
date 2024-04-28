@@ -13,7 +13,9 @@ import {
   Settings,
   Box,
   LogOut,
-  ChevronRight
+  ChevronRight,
+  Bell,
+  ArrowLeftToLine
 } from "lucide-react";
 import { Button } from "./ui/button";
 
@@ -52,6 +54,12 @@ export default function SideNavbar({}: Props) {
             variant: "default"
           },
           {
+            title: "Notifications",
+            href: "/notifications",
+            icon: Bell,
+            variant: "ghost"
+          },
+          {
             title: "Users",
             href: "/users",
             icon: UsersRound,
@@ -61,6 +69,12 @@ export default function SideNavbar({}: Props) {
             title: "Orders",
             href: "/orders",
             icon: ShoppingCart,
+            variant: "ghost"
+          },
+          {
+            title: "Returns",
+            href: "/returns",
+            icon: ArrowLeftToLine,
             variant: "ghost"
           },
           {
