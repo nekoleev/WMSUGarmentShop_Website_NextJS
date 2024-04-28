@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="w-screen h-screen flex justify-center p-10 gap-5">
+      <body className="w-screen h-screen flex justify-center">
         {/* <main className="w-[100vh] flex">
           
         </main> */}

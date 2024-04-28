@@ -1,105 +1,109 @@
-/**
- * eslint-disable @next/next/no-img-element
- *
- * @format
- */
-
 /** @format */
-"use client";
 
-import { DataTable } from "@/components/DataTable";
-import { ColumnDef } from "@tanstack/react-table";
-import React from "react";
 import PageTitle from "@/components/PageTitle";
+import Image from "next/image";
+import { DollarSign, Users, CreditCard, Activity } from "lucide-react";
+import Card, { CardContent, CardProps } from "@/components/Card";
+import BarChart from "@/components/BarChart";
+import SalesCard, { SalesProps } from "@/components/SalesCard";
+import { Skeleton } from "@/components/ui/skeleton"
 
-type Props = {};
-type Payment = {
-  name: string;
-  email: string;
-  dateOrder: string;
-  method: string;
-};
 
-const columns: ColumnDef<Payment>[] = [
+const cardData: CardProps[] = [
   {
-    accessorKey: "name",
-    header: "Name",
-    cell: ({ row }) => {
-      return (
-        <div className="flex gap-2 items-center">
-          <img
-            className="h-10 w-10"
-            src={`https://api.dicebear.com/7.x/lorelei/svg?seed=${row.getValue(
-              "name"
-            )}`}
-            alt="user-image"
-          />
-          <p>{row.getValue("name")} </p>
-        </div>
-      );
-    }
+    label: "Total Revenue",
+    amount: "$45,231.89",
+    discription: "+20.1% from last month",
+    icon: DollarSign
   },
   {
-    accessorKey: "email",
-    header: "Email"
+    label: "Subscriptions",
+    amount: "+2350",
+    discription: "+180.1% from last month",
+    icon: Users
   },
   {
-    accessorKey: "dateOrder",
-    header: "Date"
+    label: "Sales",
+    amount: "+12,234",
+    discription: "+19% from last month",
+    icon: CreditCard
   },
   {
-    accessorKey: "method",
-    header: "Method"
+    label: "Active Now",
+    amount: "+573",
+    discription: "+201 since last hour",
+    icon: Activity
   }
 ];
 
-const data: Payment[] = [
+const uesrSalesData: SalesProps[] = [
   {
-    name: "Loniel Gapol",
-    email: "loniel.gapol@wmsu.edu.ph",
-    dateOrder: "2024-03-30",
-    method: "PayMaya"
+    name: "Olivia Martin",
+    email: "olivia.martin@email.com",
+    saleAmount: "+$1,999.00"
   },
   {
-    name: "Vannest Zapanta",
-    email: "vannest.zapanta@wmsu.edu.ph",
-    dateOrder: "2024-02-22",
-    method: "GCash"
+    name: "Jackson Lee",
+    email: "isabella.nguyen@email.com",
+    saleAmount: "+$1,999.00"
   },
   {
-    name: "Jehana Khairan",
-    email: "jehana.khairan@wmsu.edu.ph",
-    dateOrder: "2024-01-18",
-    method: "Cash"
+    name: "Isabella Nguyen",
+    email: "isabella.nguyen@email.com",
+    saleAmount: "+$39.00"
   },
   {
-    name: "Richmond Bregun",
-    email: "richmond.bregun@wmsu.edu.ph",
-    dateOrder: "2023-12-08",
-    method: "GCash"
+    name: "William Kim",
+    email: "will@email.com",
+    saleAmount: "+$299.00"
   },
   {
-    name: "Emman Idulsa",
-    email: "emman.idulsa@wmsu.edu.ph",
-    dateOrder: "2023-11-05",
-    method: "PayMaya"
-  },
-  {
-    name: "Jelaine Macias",
-    email: "jelaine.macias@wmsu.edu.ph",
-    dateOrder: "2023-10-25",
-    method: "Cash"
+    name: "Sofia Davis",
+    email: "sofia.davis@email.com",
+    saleAmount: "+$39.00"
   }
 ];
 
-
-
-
-export default function UsersPage({}: Props) {
+export default function Home() {
   return (
     <div className="flex flex-col gap-5  w-full">
-      <PageTitle title="Users" />
-      <DataTable columns={columns} data={data} />
+      <PageTitle title="Dashboard" />
+      <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-4">
+        {cardData.map((d, i) => (
+          <Card
+            key={i}
+            amount={d.amount}
+            discription={d.discription}
+            icon={d.icon}
+            label={d.label}
+          />
+        ))}
+      </section>
+      <section className="grid grid-cols-1  gap-4 transition-all lg:grid-cols-2">
+        <CardContent className="">
+          <p className="p-4 font-bold">Overview</p>
+
+          <BarChart />
+        </CardContent>
+        <CardContent className="flex justify-between gap-4">
+          <section>
+            <p>Recent Sales</p>
+            <p className="text-sm text-gray-400">
+              You made 265 sales this month.
+            </p>
+          </section>
+          {uesrSalesData.map((d, i) => (
+            <SalesCard
+              key={i}
+              email={d.email}
+              name={d.name}
+              saleAmount={d.saleAmount}
+            />
+          ))}
+        </CardContent>
+
+        {/*  */}
+      </section>
     </div>
   );
 }

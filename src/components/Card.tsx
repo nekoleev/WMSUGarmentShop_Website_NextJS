@@ -13,16 +13,16 @@ export type CardProps = {
 
 export default function Card(props: CardProps) {
   return (
-    <CardContent >
+    <CardContent className="">
       <section className="flex justify-between gap-2">
         {/* label */}
-        <p className="text-sm">{props.label}</p>
+        <p className="text-sm text-red-500 font-semibold">{props.label}</p>
         {/* icon */}
-        <props.icon className="h-4 w-4 text-gray-400" />
+        <props.icon className="h-4 w-4 text-red-600" />
       </section>
       <section className="flex flex-col gap-1">
-        <h2 className="text-2xl font-semibold">{props.amount}</h2>
-        <p className="text-xs text-gray-500">{props.discription}</p>
+        <h2 className="text-2xl font-semibold text-red-600">{props.amount}</h2>
+        <p className="text-xs text-green-600">{props.discription}</p>
       </section>
     </CardContent>
   );

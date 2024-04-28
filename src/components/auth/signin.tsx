@@ -37,13 +37,12 @@ const form = useForm<z.infer<typeof formSchema>>({
     },
     })
     
+    
     // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values)
-    const router = useRouter();
-    router.push('/dashboard');
     }
 
   return (
@@ -81,7 +80,9 @@ const form = useForm<z.infer<typeof formSchema>>({
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">Signin</Button>
+            <Button type="button" className="w-full" asChild>
+            <Link href={"/dashboard"}>Signin Instead</Link>
+          </Button>
           </form>
         </Form>
   );

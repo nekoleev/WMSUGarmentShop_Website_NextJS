@@ -39,7 +39,7 @@ export default function SideNavbar({}: Props) {
             className=" rounded-full p-2"
           >
             <ChevronRight />
-            </Button>
+          </Button>
         </div>
       )}
       <Nav
@@ -47,7 +47,7 @@ export default function SideNavbar({}: Props) {
         links={[
           {
             title: "Dashboard",
-            href: "/",
+            href: "/dashboard",
             icon: LayoutDashboard,
             variant: "default"
           },
@@ -77,7 +77,7 @@ export default function SideNavbar({}: Props) {
           },
           {
             title: "Logout",
-            href: "/signin",
+            href: "/",
             icon: LogOut,
             variant: "default"
           },
