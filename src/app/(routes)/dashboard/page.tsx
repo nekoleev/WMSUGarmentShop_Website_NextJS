@@ -1,23 +1,28 @@
+"use client"
 /** @format */
 
 import PageTitle from "@/components/PageTitle";
 import Image from "next/image";
-import { DollarSign, Users, CreditCard, Activity } from "lucide-react";
+import { RussianRuble, Users, CreditCard, Activity } from "lucide-react";
 import Card, { CardContent, CardProps } from "@/components/Card";
 import BarChart from "@/components/BarChart";
 import SalesCard, { SalesProps } from "@/components/SalesCard";
-import { Skeleton } from "@/components/ui/skeleton"
-
+import { useState, useEffect } from "react";
+import {
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Skeleton } from "@/components/ui/skeleton";
 
 const cardData: CardProps[] = [
   {
     label: "Total Revenue",
-    amount: "$45,231.89",
+    amount: "₱45,231.89",
     discription: "+20.1% from last month",
-    icon: DollarSign
+    icon: RussianRuble
   },
   {
-    label: "Subscriptions",
+    label: "Monthly Visitors",
     amount: "+2350",
     discription: "+180.1% from last month",
     icon: Users
@@ -38,33 +43,68 @@ const cardData: CardProps[] = [
 
 const uesrSalesData: SalesProps[] = [
   {
-    name: "Olivia Martin",
-    email: "olivia.martin@email.com",
-    saleAmount: "+$1,999.00"
+    name: "Loniel Gapol",
+    email: "loniel.gapol@wmsu.edu.ph",
+    saleAmount: "+₱500.00"
   },
   {
-    name: "Jackson Lee",
-    email: "isabella.nguyen@email.com",
-    saleAmount: "+$1,999.00"
+    name: "Jelaine Macias",
+    email: "jelaine.macias@wmsu.edu.ph",
+    saleAmount: "+₱500.00"
   },
   {
-    name: "Isabella Nguyen",
-    email: "isabella.nguyen@email.com",
-    saleAmount: "+$39.00"
+    name: "Vannest Zapanta",
+    email: "vannest.zapanta@wmsu.edu.ph",
+    saleAmount: "+₱500.00"
   },
   {
-    name: "William Kim",
-    email: "will@email.com",
-    saleAmount: "+$299.00"
+    name: "Jehana Khairan",
+    email: "jehana.khairan@wmsu.edu.ph",
+    saleAmount: "+₱500.00"
   },
   {
-    name: "Sofia Davis",
-    email: "sofia.davis@email.com",
-    saleAmount: "+$39.00"
+    name: "Richmond Bregun",
+    email: "richmond.bregun@wmsu.edu.ph",
+    saleAmount: "+₱500.00"
   }
 ];
 
-export default function Home() {
+export default async function Home() {
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    // Generate a random delay between 1 and 3 seconds
+    const randomDelay = Math.floor(Math.random() * 3) + 1;
+
+    // Simulate loading by delaying setIsLoading(false) after the random delay
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, randomDelay * 1000); // Convert seconds to milliseconds
+
+    // Clear the timeout when component unmounts to avoid memory leaks
+    return () => clearTimeout(timer);
+  }, []);
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-5  w-full">
+        <Skeleton className="h-[30px] w-[283px]" />
+        <div className="flex flex-col gap-5  w-full">
+            <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-4">
+                <Skeleton className="h-[126px] w-[283px]" />
+                <Skeleton className="h-[126px] w-[283px]" />
+                <Skeleton className="h-[126px] w-[283px]" />
+                <Skeleton className="h-[126px] w-[283px]" />
+            </section>
+            <section className="grid grid-cols-1  gap-4 transition-all lg:grid-cols-2">
+                <Skeleton className="h-[460px] w-[570px]" />
+                <Skeleton className="h-[460px] w-[570px]"/>
+                {/*  */}
+            </section>
+        </div>
+        <div>Loading...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-5  w-full">
       <PageTitle title="Dashboard" />
@@ -101,8 +141,6 @@ export default function Home() {
             />
           ))}
         </CardContent>
-
-        {/*  */}
       </section>
     </div>
   );
