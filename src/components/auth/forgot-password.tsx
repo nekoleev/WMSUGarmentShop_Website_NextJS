@@ -49,17 +49,15 @@ const form = useForm<z.infer<typeof formSchema>>({
     }
 
   return (
-    <>
-      <div className="w-[50%] h-full border-2 rounded-xl">hello World</div>
-      <div className="w-[50%] h-full p-20 border-2 border-red-700">
+    <>  
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input placeholder="Email" {...field} type="email" suffix={<MailIcon/>} />
                   </FormControl>
@@ -75,9 +73,9 @@ const form = useForm<z.infer<typeof formSchema>>({
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>New Password</FormLabel>
                   <FormControl>
-                    <PasswordInput {...field} placeholder="Password" />
+                    <PasswordInput {...field} placeholder="New Password" />
                   </FormControl>
                   <FormDescription>
                   </FormDescription>
@@ -90,9 +88,9 @@ const form = useForm<z.infer<typeof formSchema>>({
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Confirm Password</FormLabel>
+                  <FormLabel>Confirm New Password</FormLabel>
                   <FormControl>
-                    <PasswordInput {...field} placeholder="Password" />
+                    <PasswordInput {...field} placeholder="Confirm New Password" />
                   </FormControl>
                   <FormDescription>
                   </FormDescription>
@@ -100,10 +98,12 @@ const form = useForm<z.infer<typeof formSchema>>({
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">Reset Password</Button>
+          <Button type="submit" className="w-full">Reset Password</Button>
+          <Button type="button" className="w-full bg-transparent text-red-700 border-2 border-red-700 hover:text-white" asChild>
+            <Link href={"/"}>Signin Instead</Link>
+          </Button>
           </form>
         </Form>
-      </div>
     </>
   );
 }

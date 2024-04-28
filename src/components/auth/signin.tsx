@@ -6,6 +6,7 @@ import { z } from "zod"
 import Link from "next/link"
 import { MailIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useRouter } from 'next/router';
 import { PasswordInput } from "@/components/ui/password-input"
 import {
   Form,
@@ -27,7 +28,7 @@ const formSchema = z.object({
   }),
 })
 
-export default function ProfileForm() {
+export default function SigninForm() {
 const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,16 +38,15 @@ const form = useForm<z.infer<typeof formSchema>>({
     })
     
     // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values)
+    const router = useRouter();
+    router.push('/dashboard');
     }
 
   return (
-    <>
-      <div className="w-[50%] h-full border-2 rounded-xl">hello World</div>
-      <div className="w-[50%] h-full p-20 border-2 border-red-700">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
@@ -81,10 +81,8 @@ const form = useForm<z.infer<typeof formSchema>>({
                 </FormItem>
               )}
             />
-            <Button type="submit">Submit</Button>
+            <Button type="submit" className="w-full">Signin</Button>
           </form>
         </Form>
-      </div>
-    </>
   );
 }

@@ -26,7 +26,6 @@ export default function RootLayout({
         {/* <main className="w-[100vh] flex">
           
         </main> */}
-        
         {children}
       </body>
     </html>
