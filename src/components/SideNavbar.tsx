@@ -11,6 +11,8 @@ import {
   LayoutDashboard,
   UsersRound,
   Settings,
+  Box,
+  LogOut,
   ChevronRight
 } from "lucide-react";
 import { Button } from "./ui/button";
@@ -28,7 +30,7 @@ export default function SideNavbar({}: Props) {
   }
 
   return (
-    <div className="relative min-w-[80px] border-r px-3  pb-10 pt-24 ">
+    <div className="relative min-w-[80px] border-r px-3 pt-24 flex flex-col justify-between">
       {!mobileWidth && (
         <div className="absolute right-[-20px] top-7">
           <Button
@@ -37,7 +39,7 @@ export default function SideNavbar({}: Props) {
             className=" rounded-full p-2"
           >
             <ChevronRight />
-          </Button>
+            </Button>
         </div>
       )}
       <Nav
@@ -56,9 +58,15 @@ export default function SideNavbar({}: Props) {
             variant: "ghost"
           },
           {
-            title: "Ordrs",
+            title: "Orders",
             href: "/orders",
             icon: ShoppingCart,
+            variant: "ghost"
+          },
+          {
+            title: "Products",
+            href: "/products",
+            icon: Box,
             variant: "ghost"
           },
           {
@@ -66,7 +74,13 @@ export default function SideNavbar({}: Props) {
             href: "/settings",
             icon: Settings,
             variant: "ghost"
-          }
+          },
+          {
+            title: "Logout",
+            href: "/signin",
+            icon: LogOut,
+            variant: "default"
+          },
         ]}
       />
     </div>

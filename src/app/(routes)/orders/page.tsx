@@ -23,6 +23,7 @@ type Props = {};
 type Payment = {
   order: string;
   status: string;
+  product: string;
   lastOrder: string;
   method: string;
 };
@@ -50,6 +51,10 @@ const columns: ColumnDef<Payment>[] = [
     }
   },
   {
+    accessorKey: "product",
+    header: "Product"
+  },
+  {
     accessorKey: "lastOrder",
     header: "Last Order"
   },
@@ -61,96 +66,112 @@ const columns: ColumnDef<Payment>[] = [
 
 const data: Payment[] = [
   {
-    order: "ORD001",
+    order: "ORD015",
     status: "Pending",
-    lastOrder: "2023-01-15",
-    method: "Credit Card"
-  },
-  {
-    order: "ORD002",
-    status: "Processing",
-    lastOrder: "2023-02-20",
-    method: "PayPal"
-  },
-  {
-    order: "ORD003",
-    status: "Completed",
-    lastOrder: "2023-03-10",
-    method: "Stripe"
-  },
-  {
-    order: "ORD004",
-    status: "Pending",
-    lastOrder: "2023-04-05",
-    method: "Venmo"
-  },
-  {
-    order: "ORD005",
-    status: "Completed",
-    lastOrder: "2023-05-12",
-    method: "Bank Transfer"
-  },
-  {
-    order: "ORD006",
-    status: "Processing",
-    lastOrder: "2023-06-18",
-    method: "Apple Pay"
-  },
-  {
-    order: "ORD007",
-    status: "Completed",
-    lastOrder: "2023-07-22",
-    method: "Google Pay"
-  },
-  {
-    order: "ORD008",
-    status: "Pending",
-    lastOrder: "2023-08-30",
-    method: "Cryptocurrency"
-  },
-  {
-    order: "ORD009",
-    status: "Processing",
-    lastOrder: "2023-09-05",
-    method: "Alipay"
-  },
-  {
-    order: "ORD010",
-    status: "Completed",
-    lastOrder: "2023-10-18",
-    method: "WeChat Pay"
-  },
-  {
-    order: "ORD011",
-    status: "Pending",
-    lastOrder: "2023-11-25",
-    method: "Square Cash"
-  },
-  {
-    order: "ORD012",
-    status: "Completed",
-    lastOrder: "2023-12-08",
-    method: "Zelle"
-  },
-  {
-    order: "ORD013",
-    status: "Processing",
-    lastOrder: "2024-01-15",
-    method: "Stripe"
+    product: "Polo - Male",
+    lastOrder: "2024-03-30",
+    method: "Cash"
   },
   {
     order: "ORD014",
     status: "Completed",
+    product: "Polo - Female",
     lastOrder: "2024-02-20",
-    method: "PayPal"
+    method: "PayMaya"
   },
   {
-    order: "ORD015",
+    order: "ORD013",
+    status: "Processing",
+    product: "Slacks - Male",
+    lastOrder: "2024-01-15",
+    method: "Cash"
+  },
+  {
+    order: "ORD012",
+    status: "Completed",
+    product: "Slacks - Female",
+    lastOrder: "2023-12-08",
+    method: "GCash"
+  },
+  {
+    order: "ORD011",
     status: "Pending",
-    lastOrder: "2024-03-30",
-    method: "Credit Card"
+    product: "Polo - Female",
+    lastOrder: "2023-11-25",
+    method: "GCash"
+  },
+  {
+    order: "ORD010",
+    status: "Completed",
+    product: "Polo - Male",
+    lastOrder: "2023-10-18",
+    method: "PayMaya"
+  },
+  {
+    order: "ORD009",
+    status: "Processing",
+    product: "Polo - Male",
+    lastOrder: "2023-09-05",
+    method: "Cash"
+  },
+  {
+    order: "ORD008",
+    status: "Pending",
+    product: "Slacks - Male",
+    lastOrder: "2023-08-30",
+    method: "Cash"
+  },
+  {
+    order: "ORD007",
+    status: "Completed",
+    product: "Slacks - Female",
+    lastOrder: "2023-07-22",
+    method: "GCash"
+  },
+  {
+    order: "ORD006",
+    status: "Processing",
+    product: "Slacks - Female",
+    lastOrder: "2023-06-18",
+    method: "Cash"
+  },
+  {
+    order: "ORD005",
+    status: "Completed",
+    product: "PATHFit Uniform",
+    lastOrder: "2023-05-12",
+    method: "Cash"
+  },
+  {
+    order: "ORD004",
+    status: "Pending",
+    product: "PATHFit Uniform",
+    lastOrder: "2023-04-05",
+    method: "GCash"
+  },
+  {
+    order: "ORD003",
+    status: "Completed",
+    product: "PATHFit Uniform",
+    lastOrder: "2023-03-10",
+    method: "PayMaya"
+  },
+  {
+    order: "ORD002",
+    status: "Processing",
+    product: "PATHFit Uniform",
+    lastOrder: "2023-02-20",
+    method: "Cash"
+  },
+  {
+    order: "ORD001",
+    status: "Pending",
+    product: "PATHFit Uniform",
+    lastOrder: "2023-01-15",
+    method: "PayMaya"
   }
 ];
+
 
 export default function OrdersPage({}: Props) {
   return (
