@@ -1,6 +1,6 @@
 /** @format */
 
-import "../globals.css";
+import "@/app/styles/globals.css";
 import { cn } from "../../lib/utils";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";

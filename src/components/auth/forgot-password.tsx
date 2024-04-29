@@ -50,6 +50,7 @@ const form = useForm<z.infer<typeof formSchema>>({
 
   return (
     <>  
+        <div className="flex justify-center"><h2 className="text-red-500 font-bold text-xl mb-5">RESET YOUR ADMIN PASSWORD</h2></div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -61,10 +62,9 @@ const form = useForm<z.infer<typeof formSchema>>({
                   <FormControl>
                     <Input placeholder="Email" {...field} type="email" suffix={<MailIcon/>} />
                   </FormControl>
-                  <FormDescription >
-                    This requires an admin account.
+                  <FormDescription className="flex gap-1">
+                    This requires an admin account. <FormMessage />
                   </FormDescription>
-                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -77,9 +77,9 @@ const form = useForm<z.infer<typeof formSchema>>({
                   <FormControl>
                     <PasswordInput {...field} placeholder="New Password" />
                   </FormControl>
-                  <FormDescription>
+                  <FormDescription className="flex gap-1">
+                    Choose a strong password. <FormMessage />
                   </FormDescription>
-                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -92,9 +92,9 @@ const form = useForm<z.infer<typeof formSchema>>({
                   <FormControl>
                     <PasswordInput {...field} placeholder="Confirm New Password" />
                   </FormControl>
-                  <FormDescription>
+                  <FormDescription className="flex gap-1">
+                    Re-type your new password. <FormMessage />
                   </FormDescription>
-                  <FormMessage />
                 </FormItem>
               )}
             />

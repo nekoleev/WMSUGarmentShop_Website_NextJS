@@ -1,4 +1,6 @@
+"use client"
 import SigninForm from "@/components/auth/signin";
+import "@/app/styles/globals.css"
 import Image from "next/image";
 import logo from '../assets/images/wmsu-logo.png'
 import GarmentText from '../assets/images/logo.png'

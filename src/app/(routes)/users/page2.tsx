@@ -1,8 +1,23 @@
-"use client"
+/**
+ * eslint-disable @next/next/no-img-element
+ *
+ * @format
+ */
 
-import * as React from "react"
+/** @format */
+"use client";
+
+import { DataTable } from "@/components/DataTable";
+import { ColumnDef } from "@tanstack/react-table";
+import React, { useEffect, useState } from "react";
+import PageTitle from "@/components/PageTitle";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input"
+import { ArrowUpDown, ChevronDown, MoreHorizontal, Table } from "lucide-react";
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import {
-  ColumnDef,
   ColumnFiltersState,
   SortingState,
   VisibilityState,
@@ -13,217 +28,87 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
+import { TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import PageTitle from "@/components/PageTitle"
-import { cn } from "@/lib/utils"
-
-const data: Orders[] = [
-  {
-    id: "dsa137",
-    order: "ORD015",
-    status: "Pending",
-    product: "Polo - Male",
-    dateOrder: "2024-03-30",
-    method: "Cash"
-  },
-  {
-    id: "dsa136",
-    order: "ORD014",
-    status: "Completed",
-    product: "Polo - Female",
-    dateOrder: "2024-02-20",
-    method: "PayMaya"
-  },
-  {
-    id: "dsa135",
-    order: "ORD013",
-    status: "Processing",
-    product: "Slacks - Male",
-    dateOrder: "2024-01-15",
-    method: "Cash"
-  },
-  {
-    id: "dsa134",
-    order: "ORD012",
-    status: "Completed",
-    product: "Slacks - Female",
-    dateOrder: "2023-12-08",
-    method: "GCash"
-  },
-  {
-    id: "dsa133",
-    order: "ORD011",
-    status: "Pending",
-    product: "Polo - Female",
-    dateOrder: "2023-11-25",
-    method: "GCash"
-  },
-  {
-    id: "dsa132",
-    order: "ORD010",
-    status: "Completed",
-    product: "Polo - Male",
-    dateOrder: "2023-10-18",
-    method: "PayMaya"
-  },
-  {
-    id: "dsa131",
-    order: "ORD009",
-    status: "Processing",
-    product: "Polo - Male",
-    dateOrder: "2023-09-05",
-    method: "Cash"
-  },
-  {
-    id: "dsa130",
-    order: "ORD008",
-    status: "Pending",
-    product: "Slacks - Male",
-    dateOrder: "2023-08-30",
-    method: "Cash"
-  },
-  {
-    id: "dsa129",
-    order: "ORD007",
-    status: "Completed",
-    product: "Slacks - Female",
-    dateOrder: "2023-07-22",
-    method: "GCash"
-  },
-  {
-    id: "dsa128",
-    order: "ORD006",
-    status: "Processing",
-    product: "Slacks - Female",
-    dateOrder: "2023-06-18",
-    method: "Cash"
-  },
-  {
-    id: "dsa127",
-    order: "ORD005",
-    status: "Completed",
-    product: "PATHFit Uniform",
-    dateOrder: "2023-05-12",
-    method: "Cash"
-  },
-  {
-    id: "dsa126",
-    order: "ORD004",
-    status: "Pending",
-    product: "PATHFit Uniform",
-    dateOrder: "2023-04-05",
-    method: "GCash"
-  },
-  {
-    id: "dsa125",
-    order: "ORD003",
-    status: "Completed",
-    product: "PATHFit Uniform",
-    dateOrder: "2023-03-10",
-    method: "PayMaya"
-  },
-  {
-    id: "dsa124",
-    order: "ORD002",
-    status: "Processing",
-    product: "PATHFit Uniform",
-    dateOrder: "2023-02-20",
-    method: "Cash"
-  },
-  {
-    id: "dsa123",
-    order: "ORD001",
-    status: "Pending",
-    product: "PATHFit Uniform",
-    dateOrder: "2023-01-15",
-    method: "PayMaya"
-  }
-];
-
-export type Orders = {
+type Props = {};
+type Users = {
   id: string;
-  order: string;
-  status: string;
-  product: string;
-  dateOrder: string;
+  name: string;
+  email: string;
+  dateRegistered: string;
   method: string;
 };
 
-export const columns: ColumnDef<Orders>[] = [
+const columns: ColumnDef<Users>[] = [
   {
-    accessorKey: "order",
-    header: "Order No.",
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    accessorKey: "name",
+    header: "Student Name",
     cell: ({ row }) => {
       return (
         <div className="flex gap-2 items-center">
-          <p>{row.getValue("order")} </p>
+          <img
+            className="h-10 w-10"
+            src={`https://api.dicebear.com/7.x/lorelei/svg?seed=${row.getValue(
+              "name"
+            )}`}
+            alt="user-image"
+          />
+          <p>{row.getValue("name")} </p>
         </div>
       );
     }
   },
   {
-    accessorKey: "product",
-    header: "Product"
+    accessorKey: "email",
+    header: "Email"
   },
   {
-    accessorKey: "dateOrder",
+    accessorKey: "dateRegistered",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Date Ordered
+          Date Registered
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
-    cell: ({ row }) => <div className="lowercase pl-4">{row.getValue("dateOrder")}</div>,
+    cell: ({ row }) => <div className="lowercase pl-4">{row.getValue("dateRegistered")}</div>,
   },
   {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => {
-      return (
-        <div
-          className={cn("font-medium w-fit px-4 py-2 rounded-lg", {
-            "bg-red-200 text-red-800": row.getValue("status") === "Pending",
-            "bg-orange-200 text-orange-800": row.getValue("status") === "Processing",
-            "bg-green-200 text-green-800": row.getValue("status") === "Completed"
-          })}
-        >
-          {row.getValue("status")}
-        </div>
-      );
-    }
+    accessorKey: "method",
+    header: "Method"
   },
   {
     id: "actions",
     enableHiding: false,
-    header: "Actions",
     cell: ({ row }) => {
-      const payment = row.original
+      const user = row.original
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -235,7 +120,7 @@ export const columns: ColumnDef<Orders>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+              onClick={() => navigator.clipboard.writeText(user.id)}
             >
               Copy payment ID
             </DropdownMenuItem>
@@ -244,9 +129,54 @@ export const columns: ColumnDef<Orders>[] = [
       )
     },
   },
-]
+];
 
-export default function DataTableDemo() {
+const data: Users[] = [
+  {
+    id: "asd123",
+    name: "Loniel Gapol",
+    email: "loniel.gapol@wmsu.edu.ph",
+    dateRegistered: "2024-03-30",
+    method: "PayMaya"
+  },
+  {
+    id: "asd124",
+    name: "Vannest Zapanta",
+    email: "vannest.zapanta@wmsu.edu.ph",
+    dateRegistered: "2024-02-22",
+    method: "GCash"
+  },
+  {
+    id: "asd125",
+    name: "Jehana Khairan",
+    email: "jehana.khairan@wmsu.edu.ph",
+    dateRegistered: "2024-01-18",
+    method: "Cash"
+  },
+  {
+    id: "asd126",
+    name: "Richmond Bregun",
+    email: "richmond.bregun@wmsu.edu.ph",
+    dateRegistered: "2023-12-08",
+    method: "GCash"
+  },
+  {
+    id: "asd127",
+    name: "Emman Idulsa",
+    email: "emman.idulsa@wmsu.edu.ph",
+    dateRegistered: "2023-11-05",
+    method: "PayMaya"
+  },
+  {
+    id: "asd128",
+    name: "Jelaine Macias",
+    email: "jelaine.macias@wmsu.edu.ph",
+    dateRegistered: "2023-10-25",
+    method: "Cash"
+  }
+];
+
+export default function UsersPage({}: Props) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -273,16 +203,45 @@ export default function DataTableDemo() {
       rowSelection,
     },
   })
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    // Generate a random delay between 0 and 2 seconds
+    const randomDelay = Math.random() * 2;
 
+    // Simulate loading by delaying setIsLoading(false) after the random delay
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, randomDelay * 1000); // Convert seconds to milliseconds
+
+    // Clear the timeout when component unmounts to avoid memory leaks
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-5  w-full">
+        <Skeleton className="h-[30px] w-[283px]" />
+        <div className="flex flex-col gap-5  w-full">
+          <Skeleton className="h-[50px] w-[1100px]" />
+          <Skeleton className="h-[50px] w-[1100px]" />
+          <Skeleton className="h-[50px] w-[1100px]" />
+          <Skeleton className="h-[50px] w-[1100px]" />
+          <Skeleton className="h-[50px] w-[1100px]" />
+          <Skeleton className="h-[50px] w-[1100px]" />
+          <Skeleton className="h-[50px] w-[1100px]" />
+          <Skeleton className="h-[50px] w-[1100px]" />
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="w-full">
-      <PageTitle title="Orders" />
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter Status..."
-          value={(table.getColumn("status")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter emails..."
+          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("status")?.setFilterValue(event.target.value)
+            table.getColumn("email")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
@@ -315,7 +274,7 @@ export default function DataTableDemo() {
       </div>
       <div className="rounded-md border">
         <Table>
-          <TableHeader className="bg-red-100">
+          <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -388,5 +347,5 @@ export default function DataTableDemo() {
         </div>
       </div>
     </div>
-  )
+  );
 }
